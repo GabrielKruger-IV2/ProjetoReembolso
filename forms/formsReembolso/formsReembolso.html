@@ -1,0 +1,141 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css"/>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="jquery.fileupload.min.js"></script>
+	<script type="text/javascript" src="jquery.fileupload.js"></script>
+</head>
+<body>
+<div class="fluig-style-guide">
+<form name="form" role="form">
+	<div class="panel panel-primary">
+	    <div class="panel-heading">
+	        <h3 class="panel-title"><i class="fluigicon fluigicon-user icon-md"></i> Solicitante</h3>
+	    </div>
+	    
+	    <div class="panel-body">
+	        <div class="row">
+				<div class="form-group col-md-4">
+					<label for="nome">Nome</label>
+					<input type="text" name="nome" id="nome" class="form-control" readonly required>
+				</div>
+				
+				<div class="form-group col-md-2">
+					<label for="dt_agora">Data de solicita��o</label>
+					<input type="text" name="dt_agora" id="dt_agora" class="form-control" readonly required>
+				</div>
+				
+				<div class="form-group col-md-2">
+					<label for="cpf">CPF</label>
+					<input type="text" name="cpf" id="cpf" class="form-control" mask="000.000.000-00">
+				</div>
+				
+				<div class="form-group col-md-2">
+					<label for="rg">RG</label>
+					<input type="text" name="rg" id="rg" class="form-control" mask="00.000.000-0">
+				</div>
+				
+				<div class="form-group col-md-2">
+					<label for="dptmento">Departamento</label>
+					<select name="dptmento" id="dptmento" class="form-control">
+						<option value="Desenvolvimento">Desenvolvimento</option>
+						<option value="Pessoas">Pessoas</option>
+						<option value="Infraestrutura">Infraestrutura</option>
+						<option value="Inova��o">Inova��o</option>
+						<option value="Comercial">Comercial</option>
+						<option value="Arquitetura">Arquitetura</option>
+					</select>
+				</div>
+			</div>
+	    </div>
+	</div>
+	
+	<div class="panel panel-primary">
+	    <div class="panel-heading">
+	        <h3 class="panel-title"><i class="fluigicon fluigicon-users icon-md"></i> Despesas</h3>
+	    </div>
+	    
+	    <div class="panel-body">
+	    	<table tablename="tabelaDespesas" id="tabelaDespesas" class="table table-hover" addbuttonlabel="+" addbuttonclass="btn btn-info btn1">
+	    		<thead>
+					<tr>
+						<th class="col-md-2"></th>
+						<th class="col-md-2"></th>
+						<th class="col-md-2"></th>
+						<th class="col-md-2"></th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				
+	    		<tbody>
+	    			<tr>
+						<td>
+							<label for="valor">Valor</label>
+							<input type="number" name="valor" class="form-control">
+						</td>
+						
+						<td>
+							<label for="dt_despesa">Data</label>
+							<input type="date" name="dt_despesa" class="form-control">
+						</td>
+						
+	    				<td>
+							<label for="nota">Comprovante</label>
+							<input type="file" data-url="/ecm/upload" class="btn-info btn-sm" id="nota" name="nota" title="Upload do arquivo" accept=".jpg,.jpeg,.png,.pdf">
+						</td>
+						
+						<td>
+							<label for="uploaded">Visualizar</label>
+							<input type="text" name="uploaded" id="uploaded" class="form-control" readonly="true" onclick="openDocument(this.id)" style="cursor: pointer">
+						</td>
+
+						<td>
+							<label for="apagar">Apagar</label>
+							<input type="text" name="apagar" id="apagar" class="form-control" readonly="true" onclick="deleteDocument(this.id)" style="cursor: pointer">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	    </div>
+	</div>
+	
+	<div class="panel panel-primary">
+	    <div class="panel-heading">
+	        <h3 class="panel-title"><i class="fluigicon fluigicon-bell icon-md"></i> Observa��es adicionais</h3>
+	    </div>
+	    
+	    <div class="panel-body">
+	        <div class="row">
+				<div class="form-group col-md-6">
+					<label for="obsFiscal">Setor fiscal</label>
+					<textarea rows="5" name="obsFiscal" id="obsFiscal" class="form-control"></textarea>
+				</div>
+				
+				<div class="form-group col-md-6">
+					<label for="obsFinanceiro">Setor financeiro</label>
+					<textarea rows="5" name="obsFinanceiro" id="obsFinanceiro" class="form-control"></textarea>
+				</div>
+			</div>
+	    </div>
+	</div>
+</form>
+</div>
+<script type="text/javascript">	
+	if($("#nome").val().length == 0){
+		$("#nome").val(parent.WCMAPI.user);
+	}
+	
+	if($("#dt_agora").val().length == 0){
+		$("#dt_agora").val(new Date().toLocaleString());
+	}
+	
+
+</script>
+<script type="text/javascript" src="fileUpload.js"></script>
+<script type="text/javascript" src="beforeValidate.js"></script>
+</body>
+</html>
